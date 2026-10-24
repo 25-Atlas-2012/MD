@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Mitasha! 🎄</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        :root {
+            --primary: #ff6b8b;
+            --secondary: #6a11cb;
+            --accent: #ffcc00;
+            --dark: #333;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --christmas-red: #c0392b;
+            --christmas-green: #2E8B57;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header-content p { font-size: 1.5rem; margin-bottom: 20px; }
+        .birthday-date {
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 30px;
+            margin-top: 15px;
+            backdrop-filter: blur(5px);
+        }
+        .floating-balloons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+            pointer-events: none;
+        }
+        .balloon {
+            position: absolute;
+            width: 60px; height: 80px;
+            border-radius: 50%;
+            bottom: -100px;
+            animation: floatUp 20s linear infinite;
+        }
+        .balloon:after {
+            content: '';
+            position: absolute;
+            bottom: -15px; left: 50%;
+            transform: translateX(-50%);
+            width: 2px; height: 40px;
+            background: rgba(255,255,255,0.5);
+        }
+        .balloon:nth-child(1) { background: #ff6b8b; left: 10%; animation-delay: 0s; }
+        .balloon:nth-child(2) { background: #6a11cb; left: 30%; animation-delay: 4s; }
+        .balloon:nth-child(3) { background: #ffcc00; left: 50%; animation-delay: 8s; }
+        .balloon:nth-child(4) { background: #00cec9; left: 70%; animation-delay: 12s; }
+        .balloon:nth-child(5) { background: #fd79a8; left: 90%; animation-delay: 16s; }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); bottom: -100px; }
+            100% { transform: translateY(-100vh) rotate(20deg); bottom: 100vh; }
+        }
+        
+        /* COUNTDOWN */
+        .countdown-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: white;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+        }
+        .countdown-section h2 { color: var(--primary); margin-bottom: 30px; font-size: 2.2rem; }
+        .countdown-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .countdown-item {
+            background: linear-gradient(to bottom right, var(--secondary), var(--primary));
+            color: white;
+            padding: 25px 15px;
+            border-radius: 10px;
+            min-width: 120px;
+            box-shadow: var(--shadow);
+        }
+        .countdown-number { font-size: 2.8rem; font-weight: bold; display: block; }
+        .countdown-label { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* ADVENT */
+        .advent-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe6ec 50%, #f0fff4 100%);
+        }
+        .advent-header { text-align: center; margin-bottom: 50px; }
+        .advent-header h2 {
+            color: var(--christmas-red);
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+        }
+        .advent-header p { font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto; }
+        
+        .advent-progress {
+            max-width: 500px;
+            margin: 30px auto 0;
+            background: rgba(255,255,255,0.6);
+            border-radius: 30px;
+            padding: 5px;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .advent-progress-bar {
+            height: 12px;
+            border-radius: 30px;
+            background: linear-gradient(to right, var(--christmas-green), var(--christmas-red));
+            width: 0%;
+            transition: width 0.6s ease;
+        }
+        .advent-progress-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            display: block;
+        }
+        
+        /* CHAPTERS */
+        .chapter {
+            max-width: 1100px;
+            margin: 0 auto 55px;
+        }
+        .chapter-title {
+            text-align: center;
+            font-family: 'Georgia', serif;
+            font-size: 1.8rem;
+            color: var(--christmas-red);
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed rgba(192,57,43,0.3);
+        }
+        
+        /* GRID — now centered */
+        .advent-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .advent-door {
+            width: 160px;
+            height: 160px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(135deg, #fff 0%, #f8e8ee 100%);
+            border: 3px solid #f0d0da;
+            text-decoration: none;
+            color: inherit;
+        }
+        .advent-door:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .advent-door .door-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--christmas-red);
+            font-family: 'Georgia', serif;
+            line-height: 1;
+        }
+        .advent-door .door-icon { font-size: 2.2rem; margin-top: 10px; color: var(--christmas-green); }
+        .advent-door .door-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .advent-door.locked {
+            background: linear-gradient(135deg, #e0e0e0 0%, #c8c8c8 100%);
+            border-color: #b0b0b0;
+            cursor: not-allowed;
+        }
+        .advent-door.locked .door-number { color: #999; }
+        .advent-door.locked .door-icon { color: #888; }
+        .advent-door.locked .door-label { color: #777; }
+        .advent-door.locked:hover { transform: none; box-shadow: none; }
+        
+        .advent-door.opened {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffe4b5 100%);
+            border-color: var(--accent);
+        }
+        .advent-door.opened .door-icon { color: var(--primary); }
+        
+        .advent-door.today {
+            border-color: var(--christmas-red);
+            animation: todayPulse 2s ease-in-out infinite;
+        }
+        @keyframes todayPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.5); }
+            50% { box-shadow: 0 0 0 15px rgba(192,57,43,0); }
+        }
+        
+        /* DAY PANELS */
+        .day-panel {
+            display: none;
+            max-width: 800px;
+            margin: 50px auto 0;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+            animation: panelFadeIn 0.6s ease-out;
+        }
+        @keyframes panelFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .day-panel.active { display: block; }
+        .day-panel-header {
+            background: linear-gradient(to right, var(--christmas-red), var(--primary));
+            color: white;
+            padding: 40px 30px 30px;
+            text-align: center;
+            position: relative;
+        }
+        .day-panel-header .day-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            backdrop-filter: blur(5px);
+        }
+        .day-panel-header h3 {
+            font-size: 2.2rem;
+            font-family: 'Georgia', serif;
+            margin-bottom: 8px;
+        }
+        .close-day {
+            position: absolute;
+            top: 15px; right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+        .close-day:hover { background: rgba(255,255,255,0.4); transform: rotate(90deg); }
+        .day-panel-body { padding: 40px 30px; font-size: 1.15rem; line-height: 1.8; color: #444; }
+        .day-panel-body p { margin-bottom: 18px; }
+        
+        /* FOOTER */
+        footer {
+            background: linear-gradient(to right, var(--christmas-green), #1e6b41);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .footer-note { font-size: 1.1rem; opacity: 0.95; }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header-content h1 { font-size: 2.5rem; }
+            .header-content p { font-size: 1.2rem; }
+            .countdown-item { min-width: 90px; padding: 18px 10px; }
+            .countdown-number { font-size: 2rem; }
+            .advent-header h2 { font-size: 2rem; }
+            .advent-door { width: 120px; height: 120px; }
+            .advent-door .door-number { font-size: 1.8rem; }
+            .advent-door .door-icon { font-size: 1.6rem; }
+            .advent-door .door-label { font-size: 0.7rem; }
+            .chapter-title { font-size: 1.4rem; }
+            .day-panel-header h3 { font-size: 1.6rem; }
+            .day-panel-body { padding: 25px 20px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="floating-balloons">
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+        </div>
+        <div class="container header-content">
+            <h1>Happy Birthday Mitasha!</h1>
+            <p>Celebrating the amazing person you are</p>
+            <div class="birthday-date">
+                <i class="fas fa-birthday-cake"></i> December 25, 2026 <i class="fas fa-birthday-cake"></i>
+            </div>
+        </div>
+    </header>
+    
+    <!-- COUNTDOWN -->
+    <section class="countdown-section">
+        <div class="container">
+            <h2>Counting Down to the Big Day!</h2>
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ADVENT -->
+    <section class="advent-section">
+        <div class="container">
+            <div class="advent-header">
+                <h2>25 Days of Us ❤️</h2>
+                <p>One little surprise every day from December 1st to Christmas. Open one door a day — no peeking ahead! 😉</p>
+                <div class="advent-progress">
+                    <div class="advent-progress-bar" id="adventProgressBar"></div>
+                    <span class="advent-progress-label" id="adventProgressLabel">0 of 25 opened</span>
+                </div>
+            </div>
+            
+            <!-- CHAPTER I -->
+            <div class="chapter">
+                <h3 class="chapter-title">Chapter I — Once Upon a Seat</h3>
+                <div class="advent-grid" id="grid-chapter1"></div>
+            </div>
+            
+            <!-- CHAPTER II -->
+            <div class="chapter">
+                <h3 class="chapter-title">Chapter II — The Little Universe We Made</h3>
+                <div class="advent-grid" id="grid-chapter2"></div>
+            </div>
+            
+            <!-- CHAPTER III -->
+            <div class="chapter">
+                <h3 class="chapter-title">Chapter III — Things Words Can't Quite Say</h3>
+                <div class="advent-grid" id="grid-chapter3"></div>
+            </div>
+            
+            <!-- CHAPTER IV -->
+            <div class="chapter">
+                <h3 class="chapter-title">Chapter IV — The Secret Side of Maple Street</h3>
+                <div class="advent-grid" id="grid-chapter4"></div>
+            </div>
+            
+            <!-- CHAPTER V -->
+            <div class="chapter">
+                <h3 class="chapter-title">Chapter V — The Birthday Finale</h3>
+                <div class="advent-grid" id="grid-chapter5"></div>
+            </div>
+            
+            <!-- ============ DAY PANELS (blank for now) ============ -->
+            <div class="day-panel" id="panel-day1"><div class="day-panel-header"><button class="close-day" data-day="1">×</button><div class="day-badge">Day 1 · December 1</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day2"><div class="day-panel-header"><button class="close-day" data-day="2">×</button><div class="day-badge">Day 2 · December 2</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day3"><div class="day-panel-header"><button class="close-day" data-day="3">×</button><div class="day-badge">Day 3 · December 3</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day4"><div class="day-panel-header"><button class="close-day" data-day="4">×</button><div class="day-badge">Day 4 · December 4</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day5"><div class="day-panel-header"><button class="close-day" data-day="5">×</button><div class="day-badge">Day 5 · December 5</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day6"><div class="day-panel-header"><button class="close-day" data-day="6">×</button><div class="day-badge">Day 6 · December 6</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day7"><div class="day-panel-header"><button class="close-day" data-day="7">×</button><div class="day-badge">Day 7 · December 7</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day8"><div class="day-panel-header"><button class="close-day" data-day="8">×</button><div class="day-badge">Day 8 · December 8</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day9"><div class="day-panel-header"><button class="close-day" data-day="9">×</button><div class="day-badge">Day 9 · December 9</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day10"><div class="day-panel-header"><button class="close-day" data-day="10">×</button><div class="day-badge">Day 10 · December 10</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day11"><div class="day-panel-header"><button class="close-day" data-day="11">×</button><div class="day-badge">Day 11 · December 11</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day12"><div class="day-panel-header"><button class="close-day" data-day="12">×</button><div class="day-badge">Day 12 · December 12</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day13"><div class="day-panel-header"><button class="close-day" data-day="13">×</button><div class="day-badge">Day 13 · December 13</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day14"><div class="day-panel-header"><button class="close-day" data-day="14">×</button><div class="day-badge">Day 14 · December 14</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day15"><div class="day-panel-header"><button class="close-day" data-day="15">×</button><div class="day-badge">Day 15 · December 15</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day16"><div class="day-panel-header"><button class="close-day" data-day="16">×</button><div class="day-badge">Day 16 · December 16</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day17"><div class="day-panel-header"><button class="close-day" data-day="17">×</button><div class="day-badge">Day 17 · December 17</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day18"><div class="day-panel-header"><button class="close-day" data-day="18">×</button><div class="day-badge">Day 18 · December 18</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day19"><div class="day-panel-header"><button class="close-day" data-day="19">×</button><div class="day-badge">Day 19 · December 19</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day20"><div class="day-panel-header"><button class="close-day" data-day="20">×</button><div class="day-badge">Day 20 · December 20</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day21"><div class="day-panel-header"><button class="close-day" data-day="21">×</button><div class="day-badge">Day 21 · December 21</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day22"><div class="day-panel-header"><button class="close-day" data-day="22">×</button><div class="day-badge">Day 22 · December 22</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day23"><div class="day-panel-header"><button class="close-day" data-day="23">×</button><div class="day-badge">Day 23 · December 23</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day24"><div class="day-panel-header"><button class="close-day" data-day="24">×</button><div class="day-badge">Day 24 · December 24</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+            <div class="day-panel" id="panel-day25"><div class="day-panel-header"><button class="close-day" data-day="25">×</button><div class="day-badge">Day 25 · December 25 🎂</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-note">
+                <p>Made with love, only for parrots 😉🦜❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============ COUNTDOWN ============
+        function updateCountdown() {
+            const now = new Date();
+            let year = now.getFullYear();
+            let birthday = new Date(year + '-12-25T00:00:00').getTime();
+            if (birthday - now.getTime() < 0) {
+                birthday = new Date((year + 1) + '-12-25T00:00:00').getTime();
+            }
+            const timeLeft = birthday - now.getTime();
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            const elDays = document.getElementById("days");
+            const elHours = document.getElementById("hours");
+            const elMinutes = document.getElementById("minutes");
+            const elSeconds = document.getElementById("seconds");
+            
+            if (elDays) elDays.textContent = String(days).padStart(2, '0');
+            if (elHours) elHours.textContent = String(hours).padStart(2, '0');
+            if (elMinutes) elMinutes.textContent = String(minutes).padStart(2, '0');
+            if (elSeconds) elSeconds.textContent = String(seconds).padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ============ ADVENT CALENDAR ============
+        const TOTAL_DAYS = 25;
+        
+        function getAdventYear() {
+            const now = new Date();
+            if (now.getMonth() === 11 && now.getDate() > 25) {
+                return now.getFullYear() + 1;
+            }
+            return now.getFullYear();
+        }
+        const ADVENT_YEAR = getAdventYear();
+        
+        function getUnlockDate(day) {
+            return new Date(ADVENT_YEAR + '-12-' + String(day).padStart(2,'0') + 'T00:00:00');
+        }
+        function isUnlocked(day) {
+            return new Date() >= getUnlockDate(day);
+        }
+        function isOpened(day) {
+            return localStorage.getItem('mitasha_day_' + day + '_opened') === 'true';
+        }
+        function markOpened(day) {
+            localStorage.setItem('mitasha_day_' + day + '_opened', 'true');
+        }
+        
+        const CHAPTERS = [
+            { id: 'grid-chapter1', start: 1, end: 5 },
+            { id: 'grid-chapter2', start: 6, end: 10 },
+            { id: 'grid-chapter3', start: 11, end: 15 },
+            { id: 'grid-chapter4', start: 16, end: 20 },
+            { id: 'grid-chapter5', start: 21, end: 25 }
+        ];
+        
+        function buildDoor(d) {
+            const door = document.createElement('button');
+            door.className = 'advent-door';
+            door.dataset.day = d;
+            
+            const unlocked = isUnlocked(d);
+            const opened = isOpened(d);
+            const today = new Date().toDateString() === getUnlockDate(d).toDateString();
+            
+            if (!unlocked) door.classList.add('locked');
+            else if (opened) door.classList.add('opened');
+            if (today && unlocked) door.classList.add('today');
+            
+            let icon, label;
+            if (!unlocked) { icon = '<i class="fas fa-lock"></i>'; label = 'Locked'; }
+            else if (opened) { icon = '<i class="fas fa-heart"></i>'; label = 'Opened'; }
+            else { icon = '<i class="fas fa-gift"></i>'; label = 'Open me!'; }
+            
+            door.innerHTML =
+                '<span class="door-number">' + d + '</span>' +
+                '<span class="door-icon">' + icon + '</span>' +
+                '<span class="door-label">' + label + '</span>';
+            
+            door.addEventListener('click', function() { handleDoorClick(d); });
+            return door;
+        }
+        
+        function buildAdventGrid() {
+            CHAPTERS.forEach(function(ch) {
+                const grid = document.getElementById(ch.id);
+                grid.innerHTML = '';
+                for (let d = ch.start; d <= ch.end; d++) {
+                    grid.appendChild(buildDoor(d));
+                }
+            });
+        }
+        
+        function handleDoorClick(day) {
+            if (!isUnlocked(day)) {
+                const unlockDate = getUnlockDate(day);
+                const daysLeft = Math.ceil((unlockDate - new Date()) / (1000 * 60 * 60 * 24));
+                alert('⏳ This door opens on December ' + day + '.\n\n' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + ' to go!');
+                return;
+            }
+            openDayPanel(day);
+        }
+        
+        function openDayPanel(day) {
+            document.querySelectorAll('.day-panel').forEach(function(p) { p.classList.remove('active'); });
+            const panel = document.getElementById('panel-day' + day);
+            if (panel) {
+                panel.classList.add('active');
+                markOpened(day);
+                updateProgress();
+                buildAdventGrid();
+                setTimeout(function() { panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+            }
+        }
+        
+        function closeAllPanels() {
+            document.querySelectorAll('.day-panel').forEach(function(p) { p.classList.remove('active'); });
+        }
+        
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('close-day')) {
+                closeAllPanels();
+            }
+        });
+        
+        function updateProgress() {
+            let openedCount = 0;
+            for (let d = 1; d <= TOTAL_DAYS; d++) {
+                if (isOpened(d) && isUnlocked(d)) openedCount++;
+            }
+            const pct = (openedCount / TOTAL_DAYS) * 100;
+            document.getElementById('adventProgressBar').style.width = pct + '%';
+            document.getElementById('adventProgressLabel').textContent = openedCount + ' of ' + TOTAL_DAYS + ' opened';
+        }
+        
+        buildAdventGrid();
+        updateProgress();
+        setInterval(function() { buildAdventGrid(); updateProgress(); }, 60000);
+    </script>
+</body>
+</html>
