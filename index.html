@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Mitasha! 🎄</title>
+    <title>Happy Birthday, Md ❤️</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -157,7 +157,7 @@
             border-bottom: 2px dashed rgba(192,57,43,0.3);
         }
         
-        /* GRID — now centered */
+        /* GRID — centered */
         .advent-grid {
             display: flex;
             flex-wrap: wrap;
@@ -316,7 +316,7 @@
             <div class="balloon"></div>
         </div>
         <div class="container header-content">
-            <h1>Happy Birthday Mitasha!</h1>
+            <h1>Happy Birthday Md ❤️!</h1>
             <p>Celebrating the amazing person you are</p>
             <div class="birthday-date">
                 <i class="fas fa-birthday-cake"></i> December 25, 2026 <i class="fas fa-birthday-cake"></i>
@@ -391,7 +391,7 @@
                 <div class="advent-grid" id="grid-chapter5"></div>
             </div>
             
-            <!-- ============ DAY PANELS (blank for now) ============ -->
+            <!-- ============ DAY PANELS ============ -->
             <div class="day-panel" id="panel-day1"><div class="day-panel-header"><button class="close-day" data-day="1">×</button><div class="day-badge">Day 1 · December 1</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
             <div class="day-panel" id="panel-day2"><div class="day-panel-header"><button class="close-day" data-day="2">×</button><div class="day-badge">Day 2 · December 2</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
             <div class="day-panel" id="panel-day3"><div class="day-panel-header"><button class="close-day" data-day="3">×</button><div class="day-badge">Day 3 · December 3</div><h3>Coming Soon 💝</h3></div><div class="day-panel-body"><p>This day is still being written...</p></div></div>
@@ -420,11 +420,54 @@
         </div>
     </section>
     
+    <!-- PHOTOS BUTTON -->
+    <div style="text-align: center; padding: 60px 20px 20px; background: linear-gradient(to right, #ffefba, #ffffff);">
+        <h2 style="color: var(--primary); margin-bottom: 20px; font-size: 2rem; font-family: 'Georgia', serif;">Want to see our memories? 📸</h2>
+        <a href="https://25-atlas-2012.github.io/Our-photos/" style="
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 16px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 25px rgba(106, 17, 203, 0.3);
+            transition: all 0.3s ease;
+        " onmouseover="this.style.transform='translateY(-5px) scale(1.02)'; this.style.boxShadow='0 15px 30px rgba(106, 17, 203, 0.4)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 10px 25px rgba(106, 17, 203, 0.3)';">
+            <i class="fas fa-camera"></i> View Our Photos
+        </a>
+    </div>
+
     <!-- FOOTER -->
     <footer>
         <div class="container">
+            <h2>Once Again, Happy Birthday!</h2>
+            <p>Hope your day is as fantastic as you are. Cheers to another amazing year ahead!</p>
+            <a href="#" class="wish-button" id="wishButton">
+                <i class="fas fa-birthday-cake"></i> Send Birthday Wish
+            </a>
+            
+            <!-- Secret Button -->
+            <div style="margin-top: 40px; text-align: right;">
+                <button id="secretButton" style="
+                    background: transparent;
+                    border: 2px solid rgba(255,255,255,0.4);
+                    color: rgba(255,255,255,0.8);
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    backdrop-filter: blur(5px);
+                ">
+                    <i class="fas fa-key"></i> For Your Eyes Only
+                </button>
+            </div>
+            
             <div class="footer-note">
-                <p>Made with love, only for parrots 😉🦜❤️</p>
+                <p>This website was created with love for your special day.</p>
+                <p>© 2026 Birthday Tribute | Made especially for Parrots</p>
             </div>
         </div>
     </footer>
@@ -477,10 +520,10 @@
             return new Date() >= getUnlockDate(day);
         }
         function isOpened(day) {
-            return localStorage.getItem('mitasha_day_' + day + '_opened') === 'true';
+            return localStorage.getItem('md_day_' + day + '_opened') === 'true';
         }
         function markOpened(day) {
-            localStorage.setItem('mitasha_day_' + day + '_opened', 'true');
+            localStorage.setItem('md_day_' + day + '_opened', 'true');
         }
         
         const CHAPTERS = [
@@ -573,6 +616,33 @@
         buildAdventGrid();
         updateProgress();
         setInterval(function() { buildAdventGrid(); updateProgress(); }, 60000);
+
+        // ============ BIRTHDAY WISH BUTTON ============
+        document.getElementById("wishButton").addEventListener("click", function(e) {
+            e.preventDefault();
+            alert("🎂 Happy Birthday! 🎉\n\nMay all your wishes come true today and throughout the coming year!\n\nWith lots of love, Your Friend");
+            
+            // Simple confetti
+            const colors = ['#ff6b8b', '#6a11cb', '#ffcc00', '#20B2AA', '#fd79a8'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = '50%';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.zIndex = '9999';
+                confetti.style.pointerEvents = 'none';
+                document.body.appendChild(confetti);
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: 'translateY(' + window.innerHeight + 'px) rotate(' + Math.random() * 360 + 'deg)', opacity: 0 }
+                ], { duration: Math.random() * 3000 + 2000, easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)' });
+                animation.onfinish = () => confetti.remove();
+            }
+        });
     </script>
 </body>
 </html>
