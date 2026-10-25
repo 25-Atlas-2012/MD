@@ -287,6 +287,26 @@
             padding: 40px 20px;
         }
         .footer-note { font-size: 1.1rem; opacity: 0.95; }
+
+        /* WISH BUTTON */
+        .wish-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .wish-button:hover {
+            background: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
         
         /* RESPONSIVE */
         @media (max-width: 768px) {
@@ -444,28 +464,12 @@
         <div class="container">
             <h2>Once Again, Happy Birthday!</h2>
             <p>Hope your day is as fantastic as you are. Cheers to another amazing year ahead!</p>
+            
             <a href="#" class="wish-button" id="wishButton">
                 <i class="fas fa-birthday-cake"></i> Send Birthday Wish
             </a>
             
-            <!-- Secret Button -->
-            <div style="margin-top: 40px; text-align: right;">
-                <button id="secretButton" style="
-                    background: transparent;
-                    border: 2px solid rgba(255,255,255,0.4);
-                    color: rgba(255,255,255,0.8);
-                    padding: 10px 20px;
-                    border-radius: 8px;
-                    font-size: 1rem;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    backdrop-filter: blur(5px);
-                ">
-                    <i class="fas fa-key"></i> For Your Eyes Only
-                </button>
-            </div>
-            
-            <div class="footer-note">
+            <div class="footer-note" style="margin-top: 30px;">
                 <p>This website was created with love for your special day.</p>
                 <p>© 2026 Birthday Tribute | Made especially for Parrots</p>
             </div>
@@ -622,7 +626,7 @@
             e.preventDefault();
             alert("🎂 Happy Birthday! 🎉\n\nMay all your wishes come true today and throughout the coming year!\n\nWith lots of love, Your Friend");
             
-            // Simple confetti
+            // Simple confetti effect
             const colors = ['#ff6b8b', '#6a11cb', '#ffcc00', '#20B2AA', '#fd79a8'];
             for (let i = 0; i < 100; i++) {
                 const confetti = document.createElement('div');
