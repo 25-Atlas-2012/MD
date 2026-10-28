@@ -1,3 +1,8 @@
+Here is the complete `index.html` with **Day 1 (The Envelope)** fully integrated, along with the CSS and JavaScript for the animation. 
+
+Paste this to replace your entire `index.html` file.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -535,4 +540,232 @@
             const elMinutes = document.getElementById("minutes");
             const elSeconds = document.getElementById("seconds");
             
-            if (elDays) elDays.textContent =
+            if (elDays) elDays.textContent = String(days).padStart(2, '0');
+            if (elHours) elHours.textContent = String(hours).padStart(2, '0');
+            if (elMinutes) elMinutes.textContent = String(minutes).padStart(2, '0');
+            if (elSeconds) elSeconds.textContent = String(seconds).padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ============ ADVENT CALENDAR ============
+        const TOTAL_DAYS = 25;
+        
+        function getAdventYear() {
+            const now = new Date();
+            if (now.getMonth() === 11 && now.getDate() > 25) {
+                return now.getFullYear() + 1;
+            }
+            return now.getFullYear();
+        }
+        const ADVENT_YEAR = getAdventYear();
+        
+        function getUnlockDate(day) {
+            return new Date(ADVENT_YEAR + '-12-' + String(day).padStart(2,'0') + 'T00:00:00');
+        }
+        function isUnlocked(day) {
+            return new Date() >= getUnlockDate(day);
+        }
+        function isOpened(day) {
+            return localStorage.getItem('md_day_' + day + '_opened') === 'true';
+        }
+        function markOpened(day) {
+            localStorage.setItem('md_day_' + day + '_opened', 'true');
+        }
+        
+        const CHAPTERS = [
+            { id: 'grid-chapter1', start: 1, end: 5 },
+            { id: 'grid-chapter2', start: 6, end: 10 },
+            { id: 'grid-chapter3', start: 11, end: 15 },
+            { id: 'grid-chapter4', start: 16, end: 20 },
+            { id: 'grid-chapter5', start: 21, end: 25 }
+        ];
+        
+        function buildDoor(d) {
+            const door = document.createElement('button');
+            door.className = 'advent-door';
+            door.dataset.day = d;
+            
+            const unlocked = isUnlocked(d);
+            const opened = isOpened(d);
+            const today = new Date().toDateString() === getUnlockDate(d).toDateString();
+            
+            if (!unlocked) door.classList.add('locked');
+            else if (opened) door.classList.add('opened');
+            if (today && unlocked) door.classList.add('today');
+            
+            let icon, label;
+            if (!unlocked) { icon = '<i class="fas fa-lock"></i>'; label = 'Locked'; }
+            else if (opened) { icon = '<i class="fas fa-heart"></i>'; label = 'Opened'; }
+            else { icon = '<i class="fas fa-gift"></i>'; label = 'Open me!'; }
+            
+            door.innerHTML =
+                '<span class="door-number">' + d + '</span>' +
+                '<span class="door-icon">' + icon + '</span>' +
+                '<span class="door-label">' + label + '</span>';
+            
+            door.addEventListener('click', function() { handleDoorClick(d); });
+            return door;
+        }
+        
+        function buildAdventGrid() {
+            CHAPTERS.forEach(function(ch) {
+                const grid = document.getElementById(ch.id);
+                grid.innerHTML = '';
+                for (let d = ch.start; d <= ch.end; d++) {
+                    grid.appendChild(buildDoor(d));
+                }
+            });
+        }
+        
+        function handleDoorClick(day) {
+            if (!isUnlocked(day)) {
+                const unlockDate = getUnlockDate(day);
+                const daysLeft = Math.ceil((unlockDate - new Date()) / (1000 * 60 * 60 * 24));
+                alert('⏳ This door opens on December ' + day + '.\n\n' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + ' to go!');
+                return;
+            }
+            openDayPanel(day);
+        }
+        
+        function openDayPanel(day) {
+            document.querySelectorAll('.day-panel').forEach(function(p) { p.classList.remove('active'); });
+            const panel = document.getElementById('panel-day' + day);
+            if (panel) {
+                panel.classList.add('active');
+                markOpened(day);
+                updateProgress();
+                buildAdventGrid();
+                setTimeout(function() { panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+            }
+        }
+        
+        function closeAllPanels() {
+            document.querySelectorAll('.day-panel').forEach(function(p) { p.classList.remove('active'); });
+        }
+        
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('close-day')) {
+                closeAllPanels();
+            }
+        });
+        
+        function updateProgress() {
+            let openedCount = 0;
+            for (let d = 1; d <= TOTAL_DAYS; d++) {
+                if (isOpened(d) && isUnlocked(d)) openedCount++;
+            }
+            const pct = (openedCount / TOTAL_DAYS) * 100;
+            document.getElementById('adventProgressBar').style.width = pct + '%';
+            document.getElementById('adventProgressLabel').textContent = openedCount + ' of ' + TOTAL_DAYS + ' opened';
+        }
+        
+        buildAdventGrid();
+        updateProgress();
+        setInterval(function() { buildAdventGrid(); updateProgress(); }, 60000);
+
+        // ============ BIRTHDAY WISH BUTTON ============
+        document.getElementById("wishButton").addEventListener("click", function(e) {
+            e.preventDefault();
+            
+            alert("🎂 Happy Birthday, Md! ❤️\n\nA year ago today, I asked you a question on this very website, and you made me the happiest guy in the world by saying yes.\n\nToday is about celebrating you... the person who makes every ordinary day feel like magic. I hope this year brings you as much joy as you bring to me.\n\nI wuvv u ❤️");
+            
+            // Simple confetti effect
+            const colors = ['#ff6b8b', '#6a11cb', '#ffcc00', '#20B2AA', '#fd79a8'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = '50%';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.zIndex = '9999';
+                confetti.style.pointerEvents = 'none';
+                document.body.appendChild(confetti);
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: 'translateY(' + window.innerHeight + 'px) rotate(' + Math.random() * 360 + 'deg)', opacity: 0 }
+                ], { duration: Math.random() * 3000 + 2000, easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)' });
+                animation.onfinish = () => confetti.remove();
+            }
+        });
+
+        // ============ DAY 1 ENVELOPE ANIMATION ============
+        let typewriterInterval;
+
+        function openEnvelope() {
+            const flap = document.getElementById('env-flap');
+            const seal = document.getElementById('env-seal');
+            const letter = document.getElementById('letter');
+            const hint = document.getElementById('click-hint');
+            const wrapper = document.getElementById('envelope-wrapper');
+
+            // Prevent double clicking
+            if (wrapper.style.pointerEvents === 'none') return;
+            wrapper.style.pointerEvents = 'none';
+            hint.style.opacity = '0';
+
+            // 1. Break seal and open flap
+            seal.style.opacity = '0';
+            flap.style.transform = 'rotateX(180deg)';
+            flap.style.zIndex = '1';
+
+            // 2. Pull letter out
+            setTimeout(() => {
+                letter.style.opacity = '1';
+                letter.style.transform = 'translateY(-120px)';
+                letter.style.zIndex = '5';
+                letter.style.height = '280px'; // Expand height to show text
+                
+                // 3. Start typing
+                setTimeout(() => {
+                    startTypewriter();
+                }, 600);
+            }, 400);
+        }
+
+        function startTypewriter() {
+            const text = "I could've given you one birthday gift, but I wanted to give you 25 little reasons to smile along the way. Welcome to our little universe. ❤️";
+            const target = document.getElementById('typewriter-text');
+            target.innerHTML = '';
+            let i = 0;
+            
+            if (typewriterInterval) clearInterval(typewriterInterval);
+            
+            typewriterInterval = setInterval(() => {
+                if (i < text.length) {
+                    target.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typewriterInterval);
+                    document.getElementById('envelope-signature').style.opacity = '1';
+                }
+            }, 40); // Typing speed
+        }
+
+        // Reset envelope if they close the panel and open it again
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('close-day') && e.target.dataset.day === '1') {
+                setTimeout(() => {
+                    document.getElementById('env-flap').style.transform = 'rotateX(0deg)';
+                    document.getElementById('env-flap').style.zIndex = '3';
+                    document.getElementById('env-seal').style.opacity = '1';
+                    document.getElementById('letter').style.opacity = '0';
+                    document.getElementById('letter').style.transform = 'translateY(0)';
+                    document.getElementById('letter').style.zIndex = '2';
+                    document.getElementById('letter').style.height = '200px';
+                    document.getElementById('click-hint').style.opacity = '1';
+                    document.getElementById('envelope-wrapper').style.pointerEvents = 'auto';
+                    document.getElementById('typewriter-text').innerHTML = '';
+                    document.getElementById('envelope-signature').style.opacity = '0';
+                    clearInterval(typewriterInterval);
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
+```
