@@ -1,8 +1,4 @@
-Here is the complete `index.html` with **Day 1 (The Envelope)** fully integrated, along with the CSS and JavaScript for the animation. 
 
-Paste this to replace your entire `index.html` file.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -559,7 +555,10 @@ Paste this to replace your entire `index.html` file.
             }
             return now.getFullYear();
         }
-        const ADVENT_YEAR = getAdventYear();
+        
+        // ⚠️ TESTING MODE: Hardcoded to 2023 so all doors unlock.
+        // CHANGE THIS BACK TO `getAdventYear();` BEFORE PUSHING TO GITHUB! ⚠️
+        const ADVENT_YEAR = 2023; 
         
         function getUnlockDate(day) {
             return new Date(ADVENT_YEAR + '-12-' + String(day).padStart(2,'0') + 'T00:00:00');
